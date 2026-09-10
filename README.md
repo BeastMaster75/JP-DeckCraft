@@ -1,15 +1,23 @@
-# Japanese Anki Deck Builder
+# JP-DeckCraft
 
-Builds Anki (`.apkg`) flashcard decks from a Markdown vocabulary table: it
-generates Japanese TTS audio for each word and its example sentence, attaches
-an いらすとや illustration where one honestly fits, and packages everything
-into a nested deck.
+A Japanese Anki deck builder: it generates flashcard decks (`.apkg`) from a
+Markdown vocabulary table, synthesizing Japanese TTS audio for each word and
+its example sentence, attaching an いらすとや illustration where one honestly
+fits, and packaging everything into a nested deck.
+
+## Requirements
+
+- Python 3.9+
+- On Windows, set `PYTHONUTF8=1` (or `PYTHONIOENCODING=utf-8`) before
+  running any script - output filenames and console messages contain
+  Japanese text, which crashes on the default Windows console encoding
+  otherwise.
 
 ## Quick start
 
 ```
-git clone <this repo>
-cd "日本語 Anki Decks"
+git clone https://github.com/BeastMaster75/JP-DeckCraft.git
+cd JP-DeckCraft
 pip install -r requirements.txt
 ```
 
@@ -73,29 +81,10 @@ python build_anki.py 12 --no-images  # skip いらすとや lookup
 python build_anki.py 12 --vault path/to/notes   # one-off vault override
 ```
 
-## Kanji deck (optional, separate pipeline)
-
-`build_kanji.py` is a second, self-contained builder for a kanji recognition
-deck. It doesn't read the vocabulary notes or `config.py`'s curriculum
-module - its own kanji list lives inline in the script (a `LESSONS` list of
-5-kanji batches). It takes no arguments:
-
-```
-python build_kanji.py
-```
-
-This writes a single `output/apkg/漢字.apkg` (one flat deck, no per-batch
-subdecks - re-running after adding kanji updates it in place) and
-`output/review/review_kanji.html`. Stroke-order diagrams are fetched from
-[KanjiVG](https://kanjivg.tagaini.net/) (CC BY-SA 3.0) and cached under
-`cache/kanjivg/`. To add kanji, edit the `LESSONS` list at the top of the
-script and rerun.
-
 ## Project layout
 
 ```
 build_anki.py           main vocabulary deck pipeline
-build_kanji.py          separate, self-contained kanji deck
 irasutoya.py            いらすとや image search
 config.py               path/curriculum defaults (.env overrides, gitignored)
 curriculum/             per-textbook override data (blank.py, minna_no_nihongo.py)
@@ -108,10 +97,8 @@ cache/, output/, logs/  gitignored, generated at build time
 
 Illustrations come from いらすとや and are for personal study only - please
 don't redistribute `.apkg` files that bundle them (e.g. on AnkiWeb's shared
-decks). The kanji deck's stroke-order diagrams come from KanjiVG (CC BY-SA
-3.0) - see [Kanji deck](#kanji-deck-optional-separate-pipeline) above. Audio
-is generated via gTTS (Google Translate's unofficial TTS endpoint) for
-personal, non-commercial use. This repo's own code is licensed under Apache
-2.0 (see `LICENSE`) and has no such restriction; the example Minna no Nihongo
-curriculum data follows that textbook's lesson structure but isn't
-affiliated with or endorsed by its publisher.
+decks). Audio is generated via gTTS (Google Translate's unofficial TTS
+endpoint) for personal, non-commercial use. This repo's own code is licensed
+under Apache 2.0 (see `LICENSE`) and has no such restriction; the example
+Minna no Nihongo curriculum data follows that textbook's lesson structure
+but isn't affiliated with or endorsed by its publisher.
