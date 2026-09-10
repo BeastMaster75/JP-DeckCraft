@@ -1,0 +1,267 @@
+<!doctype html><meta charset="utf-8"><title>kanji card preview — pilot (Kanji 01: 月火水木金)</title>
+<style>
+ body{margin:0;padding:24px;background:#8b8f9c;font-family:system-ui,sans-serif}
+ h1{color:#fff;font-size:16px;margin:0 0 4px}
+ p.sub{color:#d7d9e2;font-size:13px;margin:0 0 22px}
+ h2{color:#fff;font-size:13px;font-weight:600;margin:0 0 8px;letter-spacing:.08em;
+    text-transform:uppercase}
+ .kanji-block{margin-bottom:34px}
+ .layout{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:1180px;margin:0 0 6px}
+ .frame{border-radius:12px;overflow:hidden;box-shadow:0 6px 20px rgba(0,0,0,.28)}
+ .frame .card{min-height:420px;display:block}
+ .card .wrap{min-height:420px}
+
+.card {
+  font-family: "Yu Gothic UI", "Hiragino Kaku Gothic ProN", "Noto Sans JP",
+               "Meiryo", sans-serif;
+  background: #eef1f7;
+  padding: 0;
+  margin: 0;
+  --sheet:  #ffffff;
+  --ink:    #1b1c22;
+  --muted:  #71727d;
+  --accent: #4f6bd8;
+  --accent-soft: #eaeefc;
+  --jade:   #157f5f;
+  --jade-soft: #e6f5ef;
+  --line:   #e2e5ee;
+  --shadow: 0 1px 2px rgba(20,25,50,.06), 0 12px 34px rgba(20,25,50,.10);
+}
+.wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 20px 14px;
+}
+.sheet {
+  background: var(--sheet);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 620px;
+  padding: 34px 28px 26px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.sheet::before {
+  content: "";
+  position: absolute; inset: 0 0 auto 0; height: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--jade));
+}
+.jp {
+  font-size: clamp(44px, 12vw, 66px);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--ink);
+  letter-spacing: .02em;
+}
+.reading {
+  font-size: clamp(18px, 5vw, 23px);
+  color: var(--accent);
+  font-weight: 600;
+  margin-top: 8px;
+  letter-spacing: .04em;
+}
+.meaning {
+  font-size: clamp(21px, 5.6vw, 28px);
+  color: var(--ink);
+  font-weight: 600;
+  line-height: 1.4;
+}
+.mnemonic {
+  margin-top: 20px;
+  padding: 14px 16px;
+  background: var(--accent-soft);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  color: var(--ink);
+  font-size: clamp(15px, 3.6vw, 17px);
+  line-height: 1.6;
+  text-align: left;
+}
+.mnemonic .primitives {
+  display: block;
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.compounds {
+  margin-top: 14px;
+  padding: 14px 18px;
+  background: var(--jade-soft);
+  border-left: 4px solid var(--jade);
+  border-radius: 0 12px 12px 0;
+  text-align: left;
+}
+.compounds-grid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 18px;
+  row-gap: 9px;
+}
+.compounds-grid .cw {
+  color: var(--jade);
+  font-weight: 700;
+  font-size: clamp(16px, 4vw, 19px);
+  white-space: nowrap;
+}
+.compounds-grid .cm {
+  color: var(--muted);
+  font-size: clamp(13px, 3.2vw, 15px);
+  align-self: center;
+}
+.rule {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 22px 0 20px;
+}
+.chip {
+  display: inline-block;
+  margin-top: 22px;
+  font-size: 12px;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 13px;
+}
+.prompt {
+  font-size: 12px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+ruby rt { font-size: .55em; color: var(--muted); font-weight: 500; }
+</style>
+<h1>漢字 pilot — Kanji 01 (月火水木金)</h1>
+<p class="sub">Recognition = kanji&nbsp;&rarr;&nbsp;meaning. Recall = meaning&nbsp;&rarr;&nbsp;kanji. Blue box = RTK-style mnemonic (primitives + story). Jade box = real compounds already taught in your vocab decks. Not final content — just the design pilot.</p>
+
+<div id="cards"></div>
+
+<script>
+const KANJI = [
+  {
+    kanji: "月", kun: "つき", on: "ゲツ・ガツ", meaning: "Moon, month",
+    primitives: "Pictograph — a crescent moon",
+    mnemonic: "Picture the character as a crescent moon lying on its side, with two short strokes inside marking its craters. The moon rules the night sky, and lends its name to the month too — つき is both \"moon\" and (read differently) \"month.\"",
+    compounds: [
+      ["月曜日", "げつようび", "Monday"],
+      ["先月", "せんげつ", "last month"],
+      ["今月", "こんげつ", "this month"],
+      ["来月", "らいげつ", "next month"],
+      ["何月", "なんがつ", "what month"]
+    ],
+    lesson: "Kanji 01"
+  },
+  {
+    kanji: "火", kun: "ひ", on: "カ", meaning: "Fire",
+    primitives: "Pictograph — a flame throwing off two sparks",
+    mnemonic: "A tongue of flame in the center kicks off two sparks, one to each side — 火 is a fire caught mid-flicker.",
+    compounds: [
+      ["火曜日", "かようび", "Tuesday"],
+      ["花火", "はなび", "fireworks"]
+    ],
+    lesson: "Kanji 01"
+  },
+  {
+    kanji: "水", kun: "みず", on: "スイ", meaning: "Water",
+    primitives: "Pictograph — a current with droplets splashing off both sides",
+    mnemonic: "A central stream with droplets flicked off to either side — this is water caught mid-splash.",
+    compounds: [
+      ["水曜日", "すいようび", "Wednesday"],
+      ["飲料水", "いんりょうすい", "drinking water"]
+    ],
+    lesson: "Kanji 01"
+  },
+  {
+    kanji: "木", kun: "き", on: "モク・ボク", meaning: "Tree, wood",
+    primitives: "Pictograph — trunk with branches above, roots below",
+    mnemonic: "A trunk with branches spreading upward and roots digging into the ground below — literally a little tree standing still.",
+    compounds: [
+      ["木曜日", "もくようび", "Thursday"],
+      ["木", "き", "tree, wood"]
+    ],
+    lesson: "Kanji 01"
+  },
+  {
+    kanji: "金", kun: "（お）かね", on: "キン・コン", meaning: "Gold, money, metal",
+    primitives: "王 (king) buried under a roof, guarding two nuggets",
+    mnemonic: "A king (王) sits under a little roof, guarding two gold nuggets at his feet — kings hoard treasure, so 金 means gold, and by extension, money.",
+    compounds: [
+      ["金曜日", "きんようび", "Friday"],
+      ["お金", "おかね", "money"],
+      ["現金", "げんきん", "cash"],
+      ["金額", "きんがく", "amount of money"]
+    ],
+    lesson: "Kanji 01"
+  }
+];
+
+function compoundsGrid(list) {
+  const rows = list.map(([word, reading, meaning]) =>
+    `<div class="cw"><ruby>${word}<rt>${reading}</rt></ruby></div><div class="cm">${meaning}</div>`
+  ).join("");
+  return `<div class="compounds-grid">${rows}</div>`;
+}
+
+const root = document.getElementById("cards");
+for (const k of KANJI) {
+  const block = document.createElement("div");
+  block.className = "kanji-block";
+  const compoundsHtml = compoundsGrid(k.compounds);
+  block.innerHTML = `
+    <h2>${k.kanji} — ${k.meaning}</h2>
+    <div class="layout">
+      <div>
+        <h2 style="opacity:.6">Recognition · front</h2>
+        <div class="frame"><div class="card"><div class="wrap"><div class="sheet">
+          <div class="prompt">意味は？</div>
+          <div class="jp">${k.kanji}</div>
+        </div></div></div></div>
+      </div>
+      <div>
+        <h2 style="opacity:.6">Recognition · back</h2>
+        <div class="frame"><div class="card"><div class="wrap"><div class="sheet">
+          <div class="jp">${k.kanji}</div>
+          <div class="reading">${k.kun}　・　${k.on}</div>
+          <hr class="rule">
+          <div class="meaning">${k.meaning}</div>
+          <div class="mnemonic"><span class="primitives">${k.primitives}</span>${k.mnemonic}</div>
+          <div class="compounds">${compoundsHtml}</div>
+          <div class="chip">${k.lesson}</div>
+        </div></div></div></div>
+      </div>
+    </div>
+    <div class="layout">
+      <div>
+        <h2 style="opacity:.6">Recall · front</h2>
+        <div class="frame"><div class="card"><div class="wrap"><div class="sheet">
+          <div class="prompt">漢字で？</div>
+          <div class="meaning">${k.meaning}</div>
+        </div></div></div></div>
+      </div>
+      <div>
+        <h2 style="opacity:.6">Recall · back</h2>
+        <div class="frame"><div class="card"><div class="wrap"><div class="sheet">
+          <div class="meaning">${k.meaning}</div>
+          <hr class="rule">
+          <div class="jp">${k.kanji}</div>
+          <div class="reading">${k.kun}　・　${k.on}</div>
+          <div class="mnemonic"><span class="primitives">${k.primitives}</span>${k.mnemonic}</div>
+          <div class="compounds">${compoundsHtml}</div>
+          <div class="chip">${k.lesson}</div>
+        </div></div></div></div>
+      </div>
+    </div>
+  `;
+  root.appendChild(block);
+}
+</script>
