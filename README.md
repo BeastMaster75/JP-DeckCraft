@@ -73,16 +73,34 @@ python build_anki.py 12 --no-images  # skip いらすとや lookup
 python build_anki.py 12 --vault path/to/notes   # one-off vault override
 ```
 
+## Kanji deck (optional, separate pipeline)
+
+`build_kanji.py` is a second, self-contained builder for a kanji recognition
+deck. It doesn't read the vocabulary notes or `config.py`'s curriculum
+module - its own kanji list lives inline in the script (a `LESSONS` list of
+5-kanji batches). It takes no arguments:
+
+```
+python build_kanji.py
+```
+
+This writes a single `output/apkg/漢字.apkg` (one flat deck, no per-batch
+subdecks - re-running after adding kanji updates it in place) and
+`output/review/review_kanji.html`. Stroke-order diagrams are fetched from
+[KanjiVG](https://kanjivg.tagaini.net/) (CC BY-SA 3.0) and cached under
+`cache/kanjivg/`. To add kanji, edit the `LESSONS` list at the top of the
+script and rerun.
+
 ## Project layout
 
 ```
 build_anki.py           main vocabulary deck pipeline
-build_kanji.py          separate, self-contained kanji deck (Minna no Nihongo only)
+build_kanji.py          separate, self-contained kanji deck
 irasutoya.py            いらすとや image search
 config.py               path/curriculum defaults (.env overrides, gitignored)
 curriculum/             per-textbook override data (blank.py, minna_no_nihongo.py)
 notes/                  lesson notes (drop your own here)
-tools/                  optional QA/debug helpers and card-design previews
+tools/                  optional QA/debug helpers and card-design previews (see tools/README.md)
 cache/, output/, logs/  gitignored, generated at build time
 ```
 
@@ -90,8 +108,10 @@ cache/, output/, logs/  gitignored, generated at build time
 
 Illustrations come from いらすとや and are for personal study only - please
 don't redistribute `.apkg` files that bundle them (e.g. on AnkiWeb's shared
-decks). Audio is generated via gTTS (Google Translate's unofficial TTS
-endpoint) for personal, non-commercial use. This repo's own code has no such
-restriction; the example Minna no Nihongo curriculum data follows that
-textbook's lesson structure but isn't affiliated with or endorsed by its
-publisher.
+decks). The kanji deck's stroke-order diagrams come from KanjiVG (CC BY-SA
+3.0) - see [Kanji deck](#kanji-deck-optional-separate-pipeline) above. Audio
+is generated via gTTS (Google Translate's unofficial TTS endpoint) for
+personal, non-commercial use. This repo's own code is licensed under Apache
+2.0 (see `LICENSE`) and has no such restriction; the example Minna no Nihongo
+curriculum data follows that textbook's lesson structure but isn't
+affiliated with or endorsed by its publisher.
